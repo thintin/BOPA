@@ -12,9 +12,18 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
+        //button actions
         binding.saveBopaEntry.setOnClickListener{
+            //code for sending editText to db
+            //BopaRoomDao.bopaRoomEntry(bopaTopic = R.id.bopaTopic, bopaContent = R.id.bopaContent)
+        }
 
+        binding.openBopaEntry.setOnClickListener{
+            //code for opening previous lists from db
+        }
+
+        binding.instructionsButton.setOnClickListener{
+            //code for opening instructions page
         }
     }
 }
