@@ -1,5 +1,6 @@
 package com.example.mytestapp
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 //import java.util.concurrent.Flow
 import kotlinx.coroutines.flow.Flow
@@ -7,20 +8,20 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BopaRoomDao {
 
+    //add new entry to db
+    @Insert
+    fun insertBopa(bopaRoomEntry: BopaRoomEntry)
+
     //change entry on db
     @Update
-    suspend fun updateBopa(bopaRoomEntry: BopaRoomEntry)
+    fun updateBopa(bopaRoomEntry: BopaRoomEntry)
 
     //open list of previous entries from db
     @Query("SELECT * FROM bopa_table")
-    fun findBopaEntry(name: String): Flow<List<BopaRoomEntry>>
-
-    //add new entry to db
-    @Insert
-    suspend fun insertBopaEntry(bopaRoomEntry: List<BopaRoomEntry>)
+    fun findBopa(name: String): Flow<List<BopaRoomEntry>>
 
     @Query("SELECT * FROM bopa_table")
-    fun allBopaEntries(): Flow<List<BopaRoomEntry>>
+    fun allBopas(): LiveData<List<BopaRoomEntry>>
 
 
 }

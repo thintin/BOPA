@@ -7,17 +7,29 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel(application: Application) : ViewModel() {
 
-    val allBopaEntries: LiveData<List<BopaRoomEntry>>
+    val allBopas: LiveData<List<BopaRoomEntry>>
     private val repository: BopaRepository
     val searchResults: MutableLiveData<List<BopaRoomEntry>>
 
     init {
-        val bopaDb = AppDatabase.getDatabase(application)
+        val bopaDb = AppDatabase.getInstance(application)
         val bopaDao = bopaDb.bopaRoomDao()
         repository = BopaRepository(bopaDao)
 
-        allBopaEntries = repository.allBopaEntries
+        allBopas = repository.allBopaRoomEntry
         searchResults = repository.searchResults
+    }
+
+    fun insertBopa(bopaRoomEntry: BopaRoomEntry) {
+        repository.insertBopaEntry(bopaRoomEntry)
+    }
+
+    fun findBopa(name: String) {
+        repository.findBopa(name)
+    }
+
+    fun deleteBopa(name: String) {
+        repository.deleteBopa(name)
     }
 
 

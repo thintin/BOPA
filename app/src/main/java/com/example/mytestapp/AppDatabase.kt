@@ -5,27 +5,33 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [BopaRoomEntry::class], version = 1)
+@Database(entities = [(BopaRoomEntry::class)], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun bopaRoomDao(): BopaRoomDao
 
     companion object {
+
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
-            if (INSTANCE == null) {
-                synchronized(this) {
-                    INSTANCE = Room.databaseBuilder(
-                        context,
+        fun getInstance(context: Context): AppDatabase? {
+            synchronized(this) {
+                var instance = INSTANCE
+
+                if (INSTANCE == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
                         AppDatabase::class.java,
                         "bopa-database.db"
-                    ).build()
-                }
-            }
+                    ).fallbackToDestructiveMigration()
+                        .build()
 
-            return INSTANCE!!
+                    INSTANCE = instance
+                }
+
+                return instance
+            }
         }
     }
 }

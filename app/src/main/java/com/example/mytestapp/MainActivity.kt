@@ -1,11 +1,16 @@
 package com.example.mytestapp
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.mytestapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -15,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         //button actions
         binding.saveBopaEntry.setOnClickListener{
             //code for sending editText to db
-            //BopaRoomDao.bopaRoomEntry(bopaTopic = R.id.bopaTopic, bopaContent = R.id.bopaContent)
+            BopaRoomDao.updateBopa(bopaTopic = R.id.bopaTopic, bopaContent = R.id.bopaContent)
         }
 
         binding.openBopaEntry.setOnClickListener{
@@ -27,3 +32,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+class MainViewModelFactory(val application: Application) :
+        ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MainViewModel(application) as T
+            }
+        }

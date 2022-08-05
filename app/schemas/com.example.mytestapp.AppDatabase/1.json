@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0c450a926cd8c074d6a02f15e4d312af",
+    "identityHash": "ca7e053848a3e3f50d25c8942f2402f6",
     "entities": [
       {
         "tableName": "BOPA_TABLE",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bopaId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bopa_topic` TEXT, `bopa_content` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bopaId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bopa_topic` TEXT NOT NULL, `bopa_content` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "bopaId",
@@ -18,13 +18,13 @@
             "fieldPath": "bopaTopic",
             "columnName": "bopa_topic",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "bopaContent",
             "columnName": "bopa_content",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -40,7 +40,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0c450a926cd8c074d6a02f15e4d312af')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca7e053848a3e3f50d25c8942f2402f6')"
     ]
   }
 }
